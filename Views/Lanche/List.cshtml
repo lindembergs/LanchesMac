@@ -1,0 +1,16 @@
+@model LancheListViewModel
+
+@{
+    ViewData["Title"] = "List";
+}
+<div>
+    <h3>@Model.CategoriaAtual</h3>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach(var lanche in Model.Lanches){
+            <Partial name="_LanchesResumo" model="@lanche" />
+        }
+    </div>
+</div>
