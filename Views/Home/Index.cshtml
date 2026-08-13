@@ -1,12 +1,86 @@
 ﻿@model HomeViewModel
 
-<partial name="_Carrossel"></partial>
+<div class="container">
+    <section class="sobre">
+        <div class="row justify-content-center">
 
-<h2>Os preferidos da semana</h2>
-<h4>Tá com fome ???</h4>
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <img src="https://api.iconify.design/mdi:heart-box.svg"
+                     alt="Feitos com amor"
+                     width="80"
+                     height="80">
+                <h3>Feitos com amor</h3>
+                <p class="text-muted">
+                    Fazemos seu lanche com carinho
+                </p>
+            </div>
 
-<div class="row">
-    @foreach(var lanche in Model.LanchesPreferidos){
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/15944/15944650.png"
+                     alt="Prontos para entrega"
+                     width="80"
+                     height="80">
+                <h3>Prontos para entrega</h3>
+                <p class="text-muted">
+                    Entregamos o seu pedido
+                </p>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/7541/7541681.png"
+                     alt="Desconto"
+                     width="80"
+                     height="80">
+                <h3>Preços camaradas</h3>
+                <p class="text-muted">
+                    Promoções imperdíveis
+                </p>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/4121/4121573.png"
+                     alt="Comida natural"
+                     width="80"
+                     height="80">
+                <h3>Lanches Naturais</h3>
+                <p class="text-muted">
+                    ...saudáveis e naturais...
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="portfolio">
+        @await Html.PartialAsync("_IndexPartial")
+    </section>
+</div>
+
+<br/>
+
+<section id="contato">
+    <div class="row">
+        <div class="col-10 com-md-5 col-lg-5 offset1" style="color: black;">
+            <h4> &copy, 2021 - LanchesMac</h4>
+            <p class="text-justify">
+                Aqui você encontra aquele lanche gostoso que da água na boca.-Aquela sobremesa saborosa e para acompanhar a sua bebida preferida
+            </p>
+        </div>
+        <div class="col-10 col-md-5 col-lg-5 offset1" style="color: black;">
+            <h4>Tem alguma duvida ?</h4>
+            <ul class="list-unstyled">
+                <li class="py-1"> Av. Bueno de Andrade, 56 setor 2 Quadra-7</li>
+                <li class="py-1"> +55- 999 9123 502</li>
+                <li class="py-1"> <a href="lanchesmac@hotmail.com" style="color: blue;">lanchesmac@hotmail.com</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+@* <partial name="_Carrossel"></partial> *@
+
+@* <div class="row">
+    @foreach (var lanche in Model.LanchesPreferidos)
+    {
         <partial name="_LanchesResumo" model="@lanche" />
     }
-</div>
+</div> *@
