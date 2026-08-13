@@ -21,6 +21,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <form class="navbar-form navbar-right" asp-controller="Lanche" method="get" asp-action="Search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Procurar produto"
+                                name="searchString" value="@ViewData["searchString"]">
+                            </div>
+                        </form>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>

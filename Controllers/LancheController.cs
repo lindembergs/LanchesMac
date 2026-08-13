@@ -47,10 +47,35 @@ public class LancheController(ILancheRepository _lanches) : Controller
         var lanche = _lanches.Lanches.FirstOrDefault(l => l.LancheId == lancheId);
 
         if (lanche is null)
-        {
             return NotFound();
-        }
 
         return View(lanche);
+    }
+
+    public ViewResult Search(string searchString)
+    {
+        IEnumerable<Lanche> lanches;
+        string categoriaAtual = string.Empty;
+
+        if (string.IsNullOrEmpty(searchString))
+        {
+            lanches = _lanches.Lanches.OrderBy(l => l.LancheId);
+            categoriaAtual = "Todos os Lanches";
+        }
+        else
+        {
+            lanches = _lanches.Lanches.Where(l => l.Nome.ToLower().Contains(searchString.ToLower()));
+
+            if (lanches.Any())
+                categoriaAtual = "Lanches";
+            else
+                categoriaAtual = "Nenhum lanche foi encontrado";
+        }
+
+        return View("~/Views/Lanche/List.cshtml", new LancheListViewModel
+        {
+            Lanches = lanches,
+            CategoriaAtual = categoriaAtual
+        });
     }
 }
