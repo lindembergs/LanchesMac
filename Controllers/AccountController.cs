@@ -30,6 +30,7 @@ public class AccountController(UserManager<IdentityUser> _userManager, SignInMan
             {
                 if (string.IsNullOrEmpty(loginVM.ReturnUrl))
                     return RedirectToAction("Index", "Home");
+                return Redirect(loginVM.ReturnUrl);
             }
         }
         ModelState.AddModelError("", "Falha ao realizar o login!!");
@@ -72,3 +73,4 @@ public class AccountController(UserManager<IdentityUser> _userManager, SignInMan
         return RedirectToAction("Index", "Home");
     }
 }
+
