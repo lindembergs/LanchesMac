@@ -55,6 +55,7 @@ public class AccountController(UserManager<IdentityUser> _userManager, SignInMan
             {
                 // se for usar a linha abaixo, é mais coerente deixar Index/Home
                 // await _signInManager.SignInAsync(user, isPersistent: false);
+                await _userManager.AddToRoleAsync(user, "Member");
                 return RedirectToAction("Login", "Account");
             }
 

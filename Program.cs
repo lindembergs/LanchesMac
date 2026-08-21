@@ -3,6 +3,7 @@ using LanchesMac.Interfaces;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
+using LanchesMac.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,8 +22,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
+builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -38,7 +43,25 @@ builder.Services.Configure<IdentityOptions>(options =>
 }
 );
 
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("Admin", politica =>
+        {
+            politica.RequireRole("Admin");
+        }
+);
+
+
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seed = scope.ServiceProvider
+                .GetRequiredService<ISeedUserRoleInitial>();
+
+    seed.SeedRoles();
+    seed.SeedUsers();
+}
 
 // using (var scope = app.Services.CreateScope())
 // {
