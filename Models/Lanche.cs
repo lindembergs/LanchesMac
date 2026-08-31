@@ -25,6 +25,7 @@ public class Lanche
     [Display(Name = "Está em estoque?")]
     public bool EmEstoque { get; set; }
 
+    [Range(1, int.MaxValue, ErrorMessage = "Selecione uma categoria")]
     public int CategoriaId { get; set; }
     public virtual Categoria Categoria { get; set; }
 }

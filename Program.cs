@@ -96,15 +96,15 @@ app.UseSession();
 
 app.MapStaticAssets();
 
+app.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=Admin}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
-app.MapControllerRoute(
-    name: "Admin",
-    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
-);
 
 app.MapControllerRoute(
     name: "categoriaFiltro",
@@ -116,12 +116,6 @@ app.MapControllerRoute(
 //     name: "AdminArea",
 //     pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
 // );
-
-app.MapAreaControllerRoute(
-    name: "Produtos",
-    areaName: "Produtos",
-    pattern: "Produtos/{controller=Admin}/{action=Index}/{id?}"
-);
 
 // app.MapControllerRoute(
 //     name: "teste",

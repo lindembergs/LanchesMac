@@ -1,0 +1,41 @@
+@model IEnumerable<LanchesMac.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Pedidos";
+}
+
+<h1 class="mb-3">Pedidos</h1>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Pedido</th>
+            <th>Cliente</th>
+            <th>Data</th>
+            <th>Itens</th>
+            <th>Total</th>
+            <th>Entregue em</th>
+            <th class="text-end">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var pedido in Model)
+    {
+        <tr>
+            <td>#@pedido.PedidoId</td>
+            <td>@pedido.Nome @pedido.Sobrenome</td>
+            <td>@pedido.PedidoEnviado.ToString("dd/MM/yyyy HH:mm")</td>
+            <td>@pedido.TotalItensPedido</td>
+            <td>@pedido.PedidoTotal.ToString("C")</td>
+            <td>@(pedido.PedidoEntregueEm?.ToString("dd/MM/yyyy HH:mm") ?? "Pendente")</td>
+            <td class="text-end">
+                <a asp-action="Details" asp-route-id="@pedido.PedidoId" class="btn btn-sm btn-outline-primary">Detalhes</a>
+                <a asp-action="Edit" asp-route-id="@pedido.PedidoId" class="btn btn-sm btn-outline-secondary">Editar</a>
+                <form asp-action="Delete" asp-route-id="@pedido.PedidoId" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Excluir este pedido?');">Excluir</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

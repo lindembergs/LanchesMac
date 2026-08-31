@@ -1,0 +1,17 @@
+@model LanchesMac.Models.Pedido
+
+@{
+    ViewData["Title"] = $"Editar pedido #{Model.PedidoId}";
+}
+
+<h1>Editar pedido #@Model.PedidoId</h1>
+<p class="text-muted">@Model.Nome @Model.Sobrenome · @Model.PedidoTotal.ToString("C")</p>
+
+<form asp-action="Edit" asp-route-id="@Model.PedidoId" method="post">
+    <div class="mb-3">
+        <label for="pedidoEntregueEm" class="form-label">Data de entrega</label>
+        <input id="pedidoEntregueEm" name="pedidoEntregueEm" type="datetime-local" class="form-control" value="@(Model.PedidoEntregueEm?.ToString("yyyy-MM-ddTHH:mm"))" />
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

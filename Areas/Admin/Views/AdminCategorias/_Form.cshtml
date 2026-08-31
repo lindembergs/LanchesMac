@@ -1,0 +1,18 @@
+@model LanchesMac.Models.Categoria
+
+<form asp-action="@(Model?.CategoriaId > 0 ? "Edit" : "Create")" method="post">
+    <input asp-for="CategoriaId" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="CategoriaNome" class="form-label"></label>
+        <input asp-for="CategoriaNome" class="form-control" />
+        <span asp-validation-for="CategoriaNome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descricao" class="form-label"></label>
+        <textarea asp-for="Descricao" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
