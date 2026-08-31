@@ -1,47 +1,61 @@
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 using LanchesMac.Repositories.Interfaces;
 using LanchesMac.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LanchesMac.Controllers;
-
-public class CarrinhoCompraController(CarrinhoCompra _carrinhoCompra, ILancheRepository _lancheRepository) : Controller
+namespace LanchesMac.Controllers
 {
-    public IActionResult Index()
+    public class CarrinhoCompraController : Controller
     {
-        var itens = _carrinhoCompra.GetCarrinhoCompraItens();
-        _carrinhoCompra.CarrinhoCompraItems = itens;
+        private readonly ILancheRepository _lancheRepository;
+        private readonly CarrinhoCompra _carrinhoCompra;
 
-        var carrinhoCompraVM = new CarrinhoCompraViewModel
+        public CarrinhoCompraController(ILancheRepository lancheRepository, 
+            CarrinhoCompra carrinhoCompra)
         {
-            CarrinhoCompra = _carrinhoCompra,
-            CarrinhoCompraTotal = _carrinhoCompra.GetCarrinhoTotal()
-        };
+            _lancheRepository = lancheRepository;
+            _carrinhoCompra = carrinhoCompra;
+        }
 
-        return View(carrinhoCompraVM);
-    }
-    [Authorize]
-    public IActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
-    {
-        var lancheSelecionado = _lancheRepository.Lanches
-                                .FirstOrDefault(p => p.LancheId == lancheId);
+        public IActionResult Index()
+        {
+            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
+            _carrinhoCompra.CarrinhoCompraItems = itens;
 
-        if (lancheSelecionado != null)
-            _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);
+            var carrinhoCompraVM = new CarrinhoCompraViewModel
+            {
+                CarrinhoCompra = _carrinhoCompra,
+                CarrinhoCompraTotal = _carrinhoCompra.GetCarrinhoCompraTotal()
+            };
 
-        return RedirectToAction("Index");
-    }
+            return View(carrinhoCompraVM);
+        }
 
-    [Authorize]
-    public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
-    {
-        var lancheSelecionado = _lancheRepository.Lanches
-                                .FirstOrDefault(l => l.LancheId == lancheId);
+        [Authorize]
+        public IActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
+        {
+            var lancheSelecionado = _lancheRepository.Lanches
+                                    .FirstOrDefault(p=> p.LancheId == lancheId); 
 
-        if (lancheSelecionado != null)
-            _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
+            if(lancheSelecionado != null)
+            {
+                _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);
+            }
+            return RedirectToAction("Index");
+        }
 
-        return RedirectToAction("Index");
+        [Authorize]
+        public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
+        {
+            var lancheSelecionado = _lancheRepository.Lanches
+                                    .FirstOrDefault(p => p.LancheId == lancheId);
+
+            if (lancheSelecionado != null)
+            {
+                _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,71 +1,76 @@
-using LanchesMac.Interfaces;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace LanchesMac.Services;
-
-public class SeedUserRoleInitial(UserManager<IdentityUser> _userManager, RoleManager<IdentityRole> _roleManager) : ISeedUserRoleInitial
+namespace LanchesMac.Services
 {
-    public void SeedRoles()
+    public class SeedUserRoleInitial : ISeedUserRoleInitial
     {
-        if (!_roleManager.RoleExistsAsync("Member").Result)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public SeedUserRoleInitial(UserManager<IdentityUser> userManager, 
+            RoleManager<IdentityRole> roleManager)
         {
-            IdentityRole role = new()
-            {
-                Name = "Member",
-                NormalizedName = "MEMBER"
-            };
-            IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        if (!_roleManager.RoleExistsAsync("Admin").Result)
+        public void SeedRoles()
         {
-            IdentityRole role = new()
+            if(!_roleManager.RoleExistsAsync("Member").Result)
             {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            };
-            IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
-        }
-    }
-
-    public void SeedUsers()
-    {
-        if (_userManager.FindByEmailAsync("usuario@localhost").Result == null)
-        {
-            IdentityUser user = new()
+                IdentityRole role = new IdentityRole();
+                role.Name = "Member";
+                role.NormalizedName = "MEMBER";
+                IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+            }
+            if (!_roleManager.RoleExistsAsync("Admin").Result)
             {
-                UserName = "usuario@localhost",
-                Email = "usuario@localhost",
-                NormalizedUserName = "usuario@localhost".ToUpper(),
-                NormalizedEmail = "usuario@localhost".ToUpper(),
-                EmailConfirmed = true,
-                LockoutEnabled = false,
-                SecurityStamp = Guid.NewGuid().ToString()
-            };
-
-            IdentityResult result = _userManager.CreateAsync(user, "Numsey#2022").Result;
-
-            if (result.Succeeded)
-                _userManager.AddToRoleAsync(user, "Member").Wait();
+                IdentityRole role = new IdentityRole();
+                role.Name = "Admin";
+                role.NormalizedName = "ADMIN";
+                IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+            }
         }
 
-        if (_userManager.FindByEmailAsync("admin@localhost").Result == null)
+        public void SeedUsers()
         {
-            IdentityUser user = new()
+            if(_userManager.FindByEmailAsync("usuario@localhost").Result == null)
             {
-                UserName = "admin@localhost",
-                Email = "admin@localhost",
-                NormalizedUserName = "admin@localhost".ToUpper(),
-                NormalizedEmail = "admin@localhost".ToUpper(),
-                EmailConfirmed = true,
-                LockoutEnabled = false,
-                SecurityStamp = Guid.NewGuid().ToString()
-            };
+                IdentityUser user = new IdentityUser();
+                user.UserName = "usuario@localhost";
+                user.Email = "usuario@localhost";
+                user.NormalizedUserName = "USUARIO@LOCALHOST";
+                user.NormalizedEmail = "USUARIO@LOCALHOST";
+                user.EmailConfirmed = true;
+                user.LockoutEnabled = false;
+                user.SecurityStamp = Guid.NewGuid().ToString();
 
-            IdentityResult result = _userManager.CreateAsync(user, "Numsey#2022").Result;
+                IdentityResult result = _userManager.CreateAsync(user,"Numsey#2022").Result;
 
-            if (result.Succeeded)
-                _userManager.AddToRoleAsync(user, "Admin").Wait();
+                if(result.Succeeded)
+                {
+                    _userManager.AddToRoleAsync(user,"Member").Wait();
+                }
+            }
+
+            if (_userManager.FindByEmailAsync("admin@localhost").Result == null)
+            {
+                IdentityUser user = new IdentityUser();
+                user.UserName = "admin@localhost";
+                user.Email = "admin@localhost";
+                user.NormalizedUserName = "ADMIN@LOCALHOST";
+                user.NormalizedEmail = "ADMIN@LOCALHOST";
+                user.EmailConfirmed = true;
+                user.LockoutEnabled = false;
+                user.SecurityStamp = Guid.NewGuid().ToString();
+
+                IdentityResult result = _userManager.CreateAsync(user, "Numsey#2022").Result;
+
+                if (result.Succeeded)
+                {
+                    _userManager.AddToRoleAsync(user, "Admin").Wait();
+                }
+            }
         }
     }
 }

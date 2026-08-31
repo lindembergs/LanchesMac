@@ -1,8 +1,9 @@
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 
-namespace LanchesMac.ViewModels;
-
-public class HomeViewModel
+namespace LanchesMac.ViewModels
 {
-    public IEnumerable<Lanche> LanchesPreferidos { get; set; }
+    public class HomeViewModel
+    {
+        public IEnumerable<Lanche> LanchesPreferidos { get; set; }
+    }
 }

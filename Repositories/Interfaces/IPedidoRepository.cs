@@ -1,8 +1,9 @@
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 
-namespace LanchesMac.Repositories.Interfaces;
-
-public interface IPedidoRepository
+namespace LanchesMac.Repositories.Interfaces
 {
-    void CriarPedido(Pedido pedido);
+    public interface IPedidoRepository
+    {
+        void CriarPedido(Pedido pedido);
+    }
 }

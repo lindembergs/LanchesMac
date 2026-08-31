@@ -1,9 +1,16 @@
-namespace LanchesMac.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class CarrinhoCompraItem
+namespace LanchesMac.Models
 {
-    public int CarrinhoCompraItemId { get; set; }
-    public Lanche Lanche { get; set; }
-    public int Quantidade { get; set; }
-    public string CarrinhoCompraId { get; set; }
+    [Table("CarrinhoCompraItens")]
+    public class CarrinhoCompraItem
+    {
+        public int CarrinhoCompraItemId { get; set; }
+        public int Quantidade { get; set; }
+
+        [StringLength(200)]
+        public string CarrinhoCompraId { get; set; }
+        public Lanche Lanche { get; set; }
+    }
 }

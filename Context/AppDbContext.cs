@@ -1,29 +1,19 @@
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LanchesMac.Context;
-
-public class AppDbContext : IdentityDbContext<IdentityUser>
+namespace LanchesMac.Context
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
-    }
-
-    public DbSet<Lanche> Lanches { get; set; }
-    public DbSet<Categoria> Categorias { get; set; }
-    public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
-    public DbSet<Pedido> Pedidos { get; set; }
-    public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Lanche>()
-            .Property(l => l.Preco)
-            .HasPrecision(10, 2);
-
-        base.OnModelCreating(modelBuilder);
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Lanche> Lanches { get; set; }
+        public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
     }
 }

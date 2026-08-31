@@ -1,33 +1,39 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 using LanchesMac.Repositories.Interfaces;
 using LanchesMac.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
-namespace LanchesMac.Controllers;
-
-public class HomeController(ILancheRepository _lancheRepository) : Controller
+namespace LanchesMac.Controllers
 {
-
-    public IActionResult Index()
+    public class HomeController : Controller
     {
-        // TempData["Nome"] = "Lindemberg";
-        var homeViewModel = new HomeViewModel
+        private readonly ILancheRepository _lancheRepository;
+
+        public HomeController(ILancheRepository lancheRepository)
         {
-            LanchesPreferidos = _lancheRepository.LanchesPreferidos
-        };
+            _lancheRepository = lancheRepository;
+        }
 
-        return View(homeViewModel);
-    }
+        public IActionResult Index()
+        {
+            var homeViewModel = new HomeViewModel
+            {
+                LanchesPreferidos = _lancheRepository.LanchesPreferidos
+            };
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+            return View(homeViewModel);
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None,
+            NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id
+                ?? HttpContext.TraceIdentifier
+            });
+        }
     }
 }

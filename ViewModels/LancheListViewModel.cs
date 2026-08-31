@@ -1,9 +1,10 @@
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 
-namespace LanchesMac.ViewModels;
-
-public class LancheListViewModel
+namespace LanchesMac.ViewModels
 {
-    public IEnumerable<Lanche> Lanches { get; set; }
-    public string CategoriaAtual { get; set; }
+    public class LancheListViewModel
+    {
+        public IEnumerable<Lanche> Lanches { get; set; }
+        public string CategoriaAtual { get; set; }
+    }
 }

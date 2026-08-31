@@ -1,46 +1,84 @@
-@model LanchesMac.Models.Pedido
+﻿@model LanchesMac.Models.Pedido
 
 @{
-    ViewData["Title"] = $"Pedido #{Model.PedidoId}";
+    ViewData["Title"] = "Details";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Pedido #@Model.PedidoId</h1>
-    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+<h1>Details</h1>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sobrenome)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sobrenome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Endereco1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Endereco1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Endereco2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Endereco2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cep)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cep)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PedidoEnviado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PedidoEnviado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PedidoEntregueEm)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PedidoEntregueEm)
+        </dd>
+    </dl>
 </div>
-
-<dl class="row">
-    <dt class="col-sm-3">Cliente</dt>
-    <dd class="col-sm-9">@Model.Nome @Model.Sobrenome</dd>
-    <dt class="col-sm-3">E-mail</dt>
-    <dd class="col-sm-9">@Model.Email</dd>
-    <dt class="col-sm-3">Telefone</dt>
-    <dd class="col-sm-9">@Model.Telefone</dd>
-    <dt class="col-sm-3">Endereço</dt>
-    <dd class="col-sm-9">@Model.Endereco1, @Model.Cidade - @Model.Estado</dd>
-</dl>
-
-<h2 class="h4 mt-4">Itens</h2>
-<table class="table table-sm">
-    <thead>
-        <tr>
-            <th>Produto</th>
-            <th>Quantidade</th>
-            <th>Preço</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.PedidoItens ?? [])
-    {
-        <tr>
-            <td>@item.Lanche?.Nome</td>
-            <td>@item.Quantidade</td>
-            <td>@item.Preco.ToString("C")</td>
-            <td>@((item.Preco * item.Quantidade).ToString("C"))</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<p class="text-end fw-bold">Total: @Model.PedidoTotal.ToString("C")</p>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.PedidoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

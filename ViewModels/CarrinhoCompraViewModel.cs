@@ -1,9 +1,10 @@
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 
-namespace LanchesMac.ViewModels;
-
-public class CarrinhoCompraViewModel
+namespace LanchesMac.ViewModels
 {
-    public CarrinhoCompra CarrinhoCompra { get; set; }
-    public decimal CarrinhoCompraTotal { get; set; }
+    public class CarrinhoCompraViewModel
+    {
+        public CarrinhoCompra CarrinhoCompra { get; set; }
+        public decimal CarrinhoCompraTotal { get; set; }
+    }
 }

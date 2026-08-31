@@ -1,35 +1,41 @@
-@model IEnumerable<LanchesMac.Models.Categoria>
+﻿@model IEnumerable<LanchesMac.Models.Categoria>
 
 @{
-    ViewData["Title"] = "Categorias";
+    ViewData["Title"] = "Index";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Categorias</h1>
-    <a asp-action="Create" class="btn btn-primary">Nova categoria</a>
-</div>
+<h1>Categorias</h1>
 
-<table class="table table-striped align-middle">
+<p>
+    <a asp-action="Create">Criar Nova Categoria</a>
+</p>
+<table class="table">
     <thead>
         <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th class="text-end">Ações</th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriaNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var categoria in Model)
-    {
+@foreach (var item in Model) {
         <tr>
-            <td>@categoria.CategoriaNome</td>
-            <td>@categoria.Descricao</td>
-            <td class="text-end">
-                <a asp-action="Edit" asp-route-id="@categoria.CategoriaId" class="btn btn-sm btn-outline-secondary">Editar</a>
-                <form asp-action="Delete" asp-route-id="@categoria.CategoriaId" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Excluir esta categoria?');">Excluir</button>
-                </form>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoriaNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoriaId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.CategoriaId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.CategoriaId">Deletar</a>
             </td>
         </tr>
-    }
+}
     </tbody>
 </table>
