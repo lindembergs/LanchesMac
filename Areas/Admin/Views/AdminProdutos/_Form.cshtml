@@ -1,7 +1,11 @@
 @model LanchesMac.Models.Lanche
 
 <form asp-action="@(Model?.LancheId > 0 ? "Edit" : "Create")" method="post">
-    <input asp-for="LancheId" type="hidden" />
+    @if (Model is not null && Model.LancheId > 0)
+    {
+        <input asp-for="LancheId" type="hidden" />
+    }
+
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-3">
         <label asp-for="Nome" class="form-label"></label>

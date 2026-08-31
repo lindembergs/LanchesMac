@@ -26,6 +26,8 @@ public class AdminProdutosController(AppDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Lanche lanche)
     {
+        ModelState.Remove(nameof(Lanche.LancheId));
+
         if (!ModelState.IsValid)
         {
             await CarregarCategoriasAsync(lanche.CategoriaId);
