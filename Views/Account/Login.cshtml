@@ -1,4 +1,4 @@
- @model LoginViewModel
+﻿ @model LoginViewModel
 
 <table class="table">
     <tr>
@@ -14,14 +14,14 @@
                         <div class="form-group">
                             <label asp-for="UserName" class="col-md-2 control-label"></label>
                             <div class="col-md-6">
-                                <input asp-for="UserName" class="form-control" value="admin@localhost" />
+                                <input asp-for="UserName" class="form-control" />
                                 <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label asp-for="Password" class="col-md-2 control-label"></label>
                             <div class="col-md-6">
-                                <input asp-for="Password" class="form-control" value="Numsey#2022"/>
+                                <input asp-for="Password" class="form-control" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                         </div>
