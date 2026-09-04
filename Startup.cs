@@ -1,14 +1,15 @@
-﻿using LanchesMac.Context;
+﻿using LanchesMac.Areas.Admin.Servicos;
+using LanchesMac.Context;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
 using LanchesMac.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
 
 namespace LanchesMac;
+
 public class Startup
 {
     public Startup(IConfiguration configuration)
@@ -40,7 +41,7 @@ public class Startup
 
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-        services.AddTransient<IPedidoRepository,PedidoRepository>();
+        services.AddTransient<IPedidoRepository, PedidoRepository>();
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
         services.AddAuthorization(options =>
@@ -54,7 +55,7 @@ public class Startup
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
-
+        services.AddScoped<RelatorioVendasService>();
         services.AddControllersWithViews();
 
         services.AddPaging(options =>
@@ -62,7 +63,7 @@ public class Startup
             options.ViewName = "Bootstrap4";
             options.PageParameterName = "pageindex";
         });
-        
+
         services.AddMemoryCache();
         //services.AddDistributedMemoryCache();
 
@@ -72,9 +73,12 @@ public class Startup
         //    options.Cookie.HttpOnly = true;
         //    options.Cookie.IsEssential = true;
         //});
+
+        services.Configure<ConfigurationImagens>(Configuration.
+                    GetSection("ConfigurationPastaImagens"));
     }
 
-    public void Configure(IApplicationBuilder app, 
+    public void Configure(IApplicationBuilder app,
         IWebHostEnvironment env, ISeedUserRoleInitial seedUserRoleInitial)
     {
         if (env.IsDevelopment())
@@ -100,7 +104,7 @@ public class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
-     
+
 
         app.UseEndpoints(endpoints =>
         {
