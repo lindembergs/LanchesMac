@@ -1,4 +1,4 @@
-﻿using LanchesMac.Areas.Admin.Servicos;
+using LanchesMac.Areas.Admin.Servicos;
 using LanchesMac.Context;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
@@ -28,6 +28,8 @@ public class Startup
              .AddEntityFrameworkStores<AppDbContext>()
              .AddDefaultTokenProviders();
 
+
+
         //services.Configure<IdentityOptions>(options =>
         //{
         //    // Default Password settings.
@@ -56,7 +58,8 @@ public class Startup
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
         services.AddScoped<RelatorioVendasService>();
-        services.AddControllersWithViews();
+        services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
 
         services.AddPaging(options =>
         {
