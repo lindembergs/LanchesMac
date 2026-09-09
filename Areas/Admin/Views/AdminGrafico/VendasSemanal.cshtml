@@ -29,6 +29,12 @@
     }
     //preparar os dados obtidos
     function GraficoVendasLanches(data) {
+
+        if (!data || data.length === 0) {
+            $('#chart_div').text('Não há vendas registradas nos últimos 7 dias.');
+            return;
+        }
+
         var dataArray = [
             ['Lanche', 'Quantidade', 'Valores(R$)']
         ];
@@ -57,7 +63,7 @@
                 title: 'Valor Total (em Reais)'
             }
         };
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChartdata.getElementById('chart_div');
         chart.draw(data, options);
     }
 
