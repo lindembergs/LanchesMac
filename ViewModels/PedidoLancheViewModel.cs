@@ -1,9 +1,10 @@
-using LanchesMac.Models;
+﻿using LanchesMac.Models;
 
-namespace LanchesMac.ViewModels;
-
-public class PedidoLancheViewModel
+namespace LanchesMac.ViewModels
 {
-    public Pedido Pedido { get; set; }
-    public IEnumerable<PedidoDetalhe> PedidoDetalhes { get; set; }
+    public class PedidoLancheViewModel
+    {
+        public Pedido Pedido { get; set; }
+        public IEnumerable<PedidoDetalhe> PedidoDetalhes { get; set; }
+    }
 }

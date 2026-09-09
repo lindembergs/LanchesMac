@@ -1,4 +1,4 @@
-using LanchesMac.Context;
+﻿using LanchesMac.Context;
 using LanchesMac.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,28 +6,31 @@ namespace LanchesMac.Areas.Admin.Servicos
 {
     public class RelatorioVendasService
     {
-        private readonly AppDbContext _context;
-
-        public RelatorioVendasService(AppDbContext context)
+        private readonly AppDbContext context;
+        public RelatorioVendasService(AppDbContext _context)
         {
-            _context = context;
+            context = _context;
         }
 
         public async Task<List<Pedido>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
-            var resultado = from obj in _context.Pedidos select obj;
+            var resultado = from obj in context.Pedidos select obj;
 
             if (minDate.HasValue)
-                resultado = resultado.Where(x => x.PedidoEnviado >= minDate.Value.Date);
+            {
+                resultado = resultado.Where(x => x.PedidoEnviado >= minDate.Value);
+            }
 
             if (maxDate.HasValue)
-                resultado = resultado.Where(x => x.PedidoEnviado < maxDate.Value.Date.AddDays(1));
+            {
+                resultado = resultado.Where(x => x.PedidoEnviado <= maxDate.Value);
+            }
 
             return await resultado
-                        .Include(l => l.PedidoItens)
-                        .ThenInclude(l => l.Lanche)
-                        .OrderByDescending(x => x.PedidoEnviado)
-                        .ToListAsync();
+                         .Include(l => l.PedidoItens)
+                         .ThenInclude(l => l.Lanche)
+                         .OrderByDescending(x => x.PedidoEnviado)
+                         .ToListAsync();
         }
     }
 }

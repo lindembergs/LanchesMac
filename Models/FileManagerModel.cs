@@ -1,4 +1,4 @@
-namespace LanchesMac.Models
+﻿namespace LanchesMac.Models
 {
     public class FileManagerModel
     {

@@ -7,7 +7,7 @@
 <h3>Pedidos</h3>
 
 <form method="get" class="form-inline">
-
+    
     <input name="filter" class="form-control" placeholder="filtro"
            value="@Model.RouteValue["Filter"]" />
 
@@ -16,7 +16,7 @@
 
 Total de Pedidos : @Model.TotalRecordCount
 <div>
-    <vc:pager paging-list="@Model"></vc:pager>
+   <vc:pager paging-list="@Model"></vc:pager>
 </div>
 
 <p>

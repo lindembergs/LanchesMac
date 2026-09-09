@@ -1,6 +1,7 @@
-namespace LanchesMac.Models;
-
-public class ConfigurationImagens
+﻿namespace LanchesMac.Models
 {
-    public string NomePastaImagensProdutos { get; set; }
+    public class ConfigurationImagens
+    {
+        public string NomePastaImagensProdutos { get; set; }
+    }
 }
