@@ -51,7 +51,9 @@
                 title: 'Lanches'
             }
         };
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        
+        const chartDiv = document.getElementById('chart_div')
+        var chart = new google.visualization.BarChart(chartDiv);
         chart.draw(data, options);
     }
 </script>
