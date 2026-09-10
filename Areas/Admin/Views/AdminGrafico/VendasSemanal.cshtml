@@ -63,7 +63,7 @@
                 title: 'Valor Total (em Reais)'
             }
         };
-        var chart = new google.visualization.LineChartdata.getElementById('chart_div');
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
 
